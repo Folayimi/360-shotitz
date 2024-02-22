@@ -7,7 +7,7 @@ import PhotoAlbum from "react-photo-album";
 // Components
 import WhiteSpace from "@/components/WhiteSpace";
 import NextJsImage from "./NextJsImage";
-import photos from "@/data/photos";
+// import photos from "@/data/photos";
 
 // Data
 import { PortfolioArrayPictures } from "@/data/photos";
