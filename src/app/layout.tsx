@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-
+import { ToastContainer } from "react-toastify";
 import "./main.scss";
 
 export const metadata: Metadata = {
@@ -15,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>{children}</body>
+      <ToastContainer />
     </html>
   );
 }
