@@ -13,7 +13,7 @@ import photos from "@/data/photos";
 import { PortfolioArrayPictures } from "@/data/photos";
 
 const Portfolio = () => {
-  const [pictureArray, setPictureArray] = useState(PortfolioArrayPictures);
+  const [pictureArray, setPictureArray] = useState<any>(PortfolioArrayPictures);
   const [pictureCategory, setPictureCategory] = useState("all");
 
   const HandlePictureCategoryChange = (category: string) => {
@@ -21,7 +21,7 @@ const Portfolio = () => {
     setPictureCategory(mycategory);
 
     const FilteredImage = pictureArray.filter(
-      (data) => data.category === mycategory
+      (data: any) => data.category === mycategory
     );
 
     setPictureArray(FilteredImage);
@@ -104,13 +104,13 @@ const Portfolio = () => {
               </ul>
             </div>
 
-            {/* <PhotoAlbum
+            <PhotoAlbum
               layout="rows"
               photos={pictureArray}
               renderPhoto={NextJsImage}
               defaultContainerWidth={1200}
               sizes={{ size: "calc(100vw - 240px)" }}
-            /> */}
+            />
           </div>
         </div>
       </WhiteSpace>
