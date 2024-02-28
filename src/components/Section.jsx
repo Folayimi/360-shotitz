@@ -25,9 +25,9 @@ const Section = () => {
               <div className="h-[479px] w-[50%]">
                 <img src="/shoot1.jpeg" className="w-full h-full" alt="shoot" />
               </div>
-              <div className="w-[50%] flex flex-col text-[18px] gap-[20px]">
+              <div className="w-[50%] flex flex-col font-normal normal_text text-[18px] gap-[20px]">
                 <h1 className=" leading-[57px] text-[40px] text-[#FF6B00]">
-                  About Us Excerpt
+                  About Us
                 </h1>
                 <p className="text-justify">
                   We strive to offer the best photography and visual experience
@@ -48,16 +48,11 @@ const Section = () => {
             </div>
 
             <div className="w-full flex reverse justify-between gap-[30px] font-[400] items-center">
-              <div className="w-[50%] flex flex-col text-[18px] gap-[20px]">
+              <div className="w-[50%] flex flex-col text-[18px] font-normal normal_text gap-[20px]">
                 <h1 className=" leading-[57px] text-[40px] text-[#FF6B00]">
-                  What We Do
+                WE DON’T SELL CAMERAWORK WE SELL INNOVATION
                 </h1>
-
-                <div className="text-justify">
-                  <span className="solid">
-                    WE DON’T SELL CAMERAWORK WE SELL INNOVATION
-                  </span>
-                  <p>
+                <p className="text-justify">
                     Innovation and quality delivery are what set us apart. With
                     over a decade of experience in event photography and visual
                     creation, we’ve established a process that brings unmatched
@@ -69,7 +64,6 @@ const Section = () => {
                     state-of-the-art presentation. We bring your imagination to
                     life.
                   </p>
-                </div>
                 <Link href="/about">
                   <button className="py-3 px-6 shadow inline-flex bg-[var(--primary-color)] hover:text-main justify-center items-center gap-2 rounded-full font-medium text-white align-middle transition-all text-md">
                     Learn More
