@@ -8,7 +8,7 @@ import SocialHandles from "@/components/SocialHandles";
 import MyCarousel from "@/components/MyCarousel";
 
 const HeroSection = () => {
-  const Images = ["/hero1.jpg", "/hero2.jpg", "/hero3.jpg"];
+  const Images = ["/hero1.JPG", "/hero2.jpg", "/hero3.JPG"];
   return (
     <div className="w-full flex gap-2 flex-col">
       <WhiteSpace>
