@@ -5,6 +5,7 @@ import Link from "next/link";
 // Components
 import WhiteSpace from "@/components/WhiteSpace";
 import SocialHandles from "@/components/SocialHandles";
+import MyCarousel from "@/components/MyCarousel";
 
 const HeroSection = () => {
   return (
@@ -44,6 +45,7 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="relative w-full h-full md:block hidden">
+            {/* <MyCarousel/> */}
             <div className="w-full h-full flex overflow-x-scroll no-scrollbar gap-12 items-center absolute -bottom-12 left-0 right-0 min-h-[450px]">
               {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((data, index) => {
                 return (
