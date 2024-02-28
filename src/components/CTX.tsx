@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // Components
 import WhiteSpace from "@/components/WhiteSpace";
@@ -54,8 +55,8 @@ const PhotographCTX = () => {
               style={{ lineHeight: 1.7 }}
               className="text-lg font-normal text-white opacity-65 normal_text"
             >
-              Only photography has been able to divide human life into a series
-              of moments, each of them has the value of a complete existence.
+              We are an innovative photography group with a team of experienced
+              talents, allowing us to bring your imagination to life.
             </p>
           </div>
           <div className="w-full h-full flex flex-wrap md:flex-nowrap gap-x-12 gap-y-6 items-center">
@@ -77,6 +78,13 @@ const PhotographCTX = () => {
                 </div>
               );
             })}
+          </div>
+          <div className="w-full flex justify-center items-center">
+            <Link href="/about">
+              <button className="py-3 px-6 shadow inline-flex bg-[var(--primary-color)] hover:text-main justify-center items-center gap-2 rounded-full font-medium text-white align-middle transition-all text-md">
+                Learn More
+              </button>
+            </Link>
           </div>
         </div>
       </WhiteSpace>
