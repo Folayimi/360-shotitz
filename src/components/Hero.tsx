@@ -8,6 +8,7 @@ import SocialHandles from "@/components/SocialHandles";
 import MyCarousel from "@/components/MyCarousel";
 
 const HeroSection = () => {
+  const Images = ["/hero1.jpg", "/hero2.jpg", "/hero3.jpg"];
   return (
     <div className="w-full flex gap-2 flex-col">
       <WhiteSpace>
@@ -47,7 +48,7 @@ const HeroSection = () => {
           <div className="relative w-full h-full md:block hidden">
             {/* <MyCarousel/> */}
             <div className="w-full h-full flex overflow-x-scroll no-scrollbar gap-12 items-center absolute -bottom-12 left-0 right-0 min-h-[450px]">
-              {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((data, index) => {
+              {Images.map((image, index) => {
                 return (
                   <div
                     className="w-full h-full flex flex-col gap-2 no-scrollbar rounded group min-w-[250px]"
@@ -55,7 +56,7 @@ const HeroSection = () => {
                   >
                     <div className="overflow-hidden rounded">
                       <Image
-                        src="/shoot1.jpeg"
+                        src={image}
                         alt="wedding shoot"
                         width="150"
                         height="150"

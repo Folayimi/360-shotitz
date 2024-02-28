@@ -36,15 +36,15 @@ const Portfolio = () => {
       <WhiteSpace>
         <div className="w-full flex flex-col gap-6">
           <div className="w-full text-center flex flex-col gap-4 max-w-3xl mx-auto">
-            <h1 className="text-4xl font-bold">
+            <h1 className="text-5xl font-bold">
               <span className="text-primary">
-                Portfolio -{pictureCategory}{" "}
+                Portfolio
               </span>
             </h1>
 
             <p
               style={{ lineHeight: 1.7 }}
-              className="text-lg font-normal text-white opacity-65 normal_text"
+              className="text-lg font-normal text-white normal_text"
             >
               Behind the lens comes some of our amazing event photography and
               video content.
