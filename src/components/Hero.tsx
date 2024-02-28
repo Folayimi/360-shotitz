@@ -58,8 +58,8 @@ const HeroSection = () => {
                       <Image
                         src={image}
                         alt="wedding shoot"
-                        width="150"
-                        height="150"
+                        width={1000}
+                        height={1000}
                         className="w-full max-w-full object-cover rounded group-hover:scale-125 transition-all"
                       />
                     </div>
