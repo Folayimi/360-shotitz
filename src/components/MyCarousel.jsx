@@ -1,5 +1,6 @@
 import React from "react";
 import Carousel from "react-carousel";
+import Image from "next/image";
 
 const MyCarousel = () => {
   const images = [
@@ -14,7 +15,7 @@ const MyCarousel = () => {
       {images.map((image, index) => {
         return (
           <>
-            <img src={image} alt={`${image}+${index + 1}`} />
+            <Image width={100} height={100} src={image} alt={`${image}+${index + 1}`} />
           </>
         );
       })}

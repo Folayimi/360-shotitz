@@ -49,7 +49,7 @@ const PhotographCTX = () => {
     <div className="w-full flex flex-col gap-12">
       <div className="w-full text-center flex flex-col gap-4">
         <h1 style={{ lineHeight: 1.5 }} className="text-4xl font-bold">
-          <span className="text-primary"> &apos;&apos; A Photograph</span>{" "}
+          <span className="text-primary"> &apos;&apos; A Photograph</span>
           is often viewed, rarely deeply observed. &apos;&apos;
         </h1>
 
@@ -65,7 +65,7 @@ const PhotographCTX = () => {
           the audience. In drone photography, the unique aerial perspective
           we provide offers a grand scale and context to the narrative,
           adding an unparalleled dimension to the visual storytelling.
-          Whether it's the subtle interplay of light and shadow in a photo
+          Whether it&apos;s the subtle interplay of light and shadow in a photo
           or the sweeping grandeur of a drone-shot landscape, my work is
           about diving into the depths of what the eye can see and bringing
           forth what only the heart can perceive.
@@ -79,8 +79,8 @@ const PhotographCTX = () => {
                 <Image
                   src={`/${data.image}`}
                   alt="wedding shoot"
-                  width="100"
-                  height="100"
+                  width={1000}
+                  height={1000}
                   className="w-full object-cover rounded h-[350px]"
                 />
               </div>

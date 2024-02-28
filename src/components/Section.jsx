@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 // Components
 import WhiteSpace from "@/components/WhiteSpace";
@@ -23,7 +24,13 @@ const Section = () => {
           <div className="w-full flex flex-col gap-[150px]">
             <div className="w-full flex md:justify-between justify-center gap-[30px] font-[400] flex-wrap md:flex-nowrap items-start">
               <div className="md:h-[479px] h-auto md:w-auto w-full">
-                <img src="/about2.jpg" className="w-full h-full" alt="shoot" />
+                <Image
+                  width={1000}
+                  height={1000}
+                  src="/about2.jpg"
+                  className="w-full h-full"
+                  alt="shoot"
+                />
               </div>
               <div className="w-full md:w-[50%] flex flex-col font-normal normal_text text-[18px] gap-[20px]">
                 <h1 className=" leading-[57px] text-5xl font-semibold text-[#FF6B00]">
@@ -76,7 +83,9 @@ const Section = () => {
                 </Link>
               </div>
               <div className="md:h-[479px] h-auto md:w-auto w-full">
-                <img
+                <Image
+                  width={1000}
+                  height={1000}
                   src="/innovation2.jpg"
                   className="w-full h-full"
                   alt="shoot"
