@@ -9,13 +9,13 @@ const BookingProcessOne = ({
 }: {
   setBookingInfo: React.Dispatch<React.SetStateAction<bookingSchema>>;
   bookingInfo: bookingSchema;
-}) => {  
+}) => {
   const handleChange = (e: any) => {
     let name = e.target.name;
     let value = e.target.value;
     setBookingInfo({ ...bookingInfo, [name]: value });
   };
-  
+
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="w-full flex flex-col gap-2">
@@ -41,8 +41,20 @@ const BookingProcessOne = ({
           <input
             type="number"
             id="no_of_shoot"
-            name="number_of_shoot"            
+            name="number_of_shoot"
             placeholder="e.g 20"
+            onChange={handleChange}
+            className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="Phone_number">Amount</label>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            placeholder=""
             className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
           />
         </div>

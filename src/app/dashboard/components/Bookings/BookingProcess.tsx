@@ -28,6 +28,8 @@ const BookingProcess = ({
     plan: "SAPPHIRE",
     shoot_type: "OUTDOOR",
     location: "",
+    number_of_shoot: "",
+    amount: "",
     shooting_date: new Date().getTime.toString(),
     shooting_time: "",
   });
@@ -49,6 +51,8 @@ const BookingProcess = ({
       bookingInfo["plan"] &&
       bookingInfo["shoot_type"] &&
       bookingInfo["location"] &&
+      bookingInfo["amount"] &&
+      bookingInfo["number_of_shoot"] &&
       bookingInfo["shooting_date"] &&
       bookingInfo["shooting_time"]
     ) {
@@ -56,7 +60,7 @@ const BookingProcess = ({
     } else {
       setValid(false);
     }
-  }, [changing]);
+  }, [bookingInfo, changing]);
 
   const getBankDetails = async () => {
     let data;
@@ -129,20 +133,14 @@ const BookingProcess = ({
                 bookingInfo={bookingInfo}
               />
             )}
+
             {bookingSteps === 2 && (
-              <BookingProcessTwo
-                pricingPlan={pricingPlan}
-                bookingInfo={bookingInfo}
-                setBookingInfo={setBookingInfo}
-              />
-            )}
-            {bookingSteps === 3 && (
               <BookingProcessThree
                 bookingInfo={bookingInfo}
                 setBookingInfo={setBookingInfo}
               />
             )}
-            {bookingSteps === 4 && <FinalStep bankDetails={bankDetails} />}
+            {bookingSteps === 3 && <FinalStep bankDetails={bankDetails} />}
 
             <button
               className="w-full min-h-12 bg-primary rounded-md mt-6"
@@ -150,7 +148,6 @@ const BookingProcess = ({
             >
               {bookingSteps === 1 && "Make payment"}
               {bookingSteps === 2 && "Next"}
-              {bookingSteps === 3 && "Next"}
               {loading
                 ? bookingSteps === 4 && <Loader />
                 : bookingSteps === 4 && "Completed"}

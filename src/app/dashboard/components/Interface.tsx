@@ -3,6 +3,8 @@ export interface bookingSchema {
   plan: string;
   shoot_type: string;
   location: string;
+  amount: string;
+  number_of_shoot: string;
   shooting_date: string;
   shooting_time: string;
 }

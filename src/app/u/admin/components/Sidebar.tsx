@@ -15,6 +15,7 @@ import { MdOutlineLibraryBooks } from "react-icons/md";
 
 // Admin Store
 import AdminStore from "../../../../../store/store";
+import { logOutUser } from "@/services/request";
 
 // SideBar Component
 const BucksSideBar = () => {
@@ -31,8 +32,14 @@ const BucksSideBar = () => {
 
   // Sign Out
   async function signOutHandler() {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      await logOutUser(accessToken);
+    }
+    localStorage.clear();
     // Redirect to login page
-    location.reload();
+    router.push("/auth/login");
+    // location.reload();
   }
 
   return (

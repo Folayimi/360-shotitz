@@ -68,13 +68,13 @@ const RegisterPage = () => {
       console.log("validating");
       setLoading(true);
       await userRegistration(registrationDetails);
-      setIsRequestedOTP(true)
+      setIsRequestedOTP(true);
       setLoading(false);
     } else {
       console.log("not Valid");
     }
   };
-  
+
   return (
     <>
       {isRequestedOTP && (

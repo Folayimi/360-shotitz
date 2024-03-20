@@ -83,7 +83,6 @@ const refreshToken = async () => {
           localStorage.setItem("adminAccessToken", response.data.data.access);
         }
         console.log(response);
-        notify(response.data.message);
       }
     })
     .catch((err) => {

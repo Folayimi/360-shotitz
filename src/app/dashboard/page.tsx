@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { recentBookingsAndImages } from "@/services/request";
 import BookingsTable from "./bookings/components/BookingsTable";
+import Loader from "@/Loader/Loader";
 import { bookingOverviewSchema } from "./components/Interface";
 
 // Icons
@@ -18,22 +19,26 @@ import { type } from "os";
 
 const DashboardHome = () => {
   const [recentData, setRecentData] = useState([]);
+  const [recentImages, setRecentImages] = useState([]);
   const [overviewData, setOverviewData] = useState<bookingOverviewSchema>();
+  const [loading, setLoading] = useState(false);
 
   const [isStartBookingProcess, setisStartBookingProcess] =
     useState<Boolean>(false);
-  
+
   const getRecentData = async () => {
     let data;
-    const accessToken = localStorage.getItem("accessToken");    
-    console.log("accessToken: " + accessToken);    
+    const accessToken = localStorage.getItem("accessToken");
+
     if (accessToken) {
+      setLoading(true);
       data = await recentBookingsAndImages(accessToken);
+      setLoading(false);
       if (data.recent_bookings) {
         setRecentData(data.recent_bookings);
       }
       setOverviewData(data);
-      console.log(data.recent_bookings);
+      console.log(data);
     } else {
       data = await recentBookingsAndImages("string");
     }
@@ -133,62 +138,37 @@ const DashboardHome = () => {
 
           <div>
             <div className="w-full">
-              <div className="gallery">
-                <figure className="gallery__item gallery__item--1">
-                  <Image
-                    src="/shoot1.jpeg"
-                    alt="Gallery image 1"
-                    className="w-full gallery__img"
-                    width={105}
-                    height={105}
-                  />
-                </figure>
-                <figure className="gallery__item gallery__item--2">
-                  <Image
-                    src="/shoot1.jpeg"
-                    alt="Gallery image 1"
-                    width={105}
-                    height={105}
-                    className="w-full gallery__img"
-                  />
-                </figure>
-                <figure className="gallery__item gallery__item--3">
-                  <Image
-                    src="/shoot1.jpeg"
-                    alt="Gallery image 1"
-                    width={105}
-                    height={105}
-                    className="w-full gallery__img"
-                  />
-                </figure>
-                <figure className="gallery__item gallery__item--4">
-                  <Image
-                    src="/shoot1.jpeg"
-                    alt="Gallery image 1"
-                    width={105}
-                    height={105}
-                    className="w-full gallery__img"
-                  />
-                </figure>
-                <figure className="gallery__item gallery__item--5">
-                  <Image
-                    src="/shoot1.jpeg"
-                    alt="Gallery image 1"
-                    width={105}
-                    height={105}
-                    className="w-full gallery__img"
-                  />
-                </figure>
-                <figure className="gallery__item gallery__item--6">
-                  <Image
-                    src="/shoot1.jpeg"
-                    alt="Gallery image 1"
-                    width={105}
-                    height={105}
-                    className="w-full gallery__img"
-                  />
-                </figure>
-              </div>
+              {loading ? (
+                <>
+                  <Loader />
+                </>
+              ) : (
+                <>
+                  {recentImages.length > 0 ? (
+                    <>
+                      {recentImages.map((image, index) => {
+                        return (
+                          <div className="gallery" key={index}>
+                            <figure className="gallery__item gallery__item--1">
+                              <Image
+                                src={image ? image : "/shoot1.jpeg"}
+                                alt="Gallery image 1"
+                                className="w-full gallery__img"
+                                width={105}
+                                height={105}
+                              />
+                            </figure>
+                          </div>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <div className="w-full my-6">
+                      <RecentBookingsEmptyState />
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
