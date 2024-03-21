@@ -1,18 +1,22 @@
 "use client";
 
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { getPhotos } from "@/services/request";
+import RecentBookingsEmptyState from "../components/Nothing";
 
 // Icons
 import { IoArrowBackSharp } from "react-icons/io5";
+import ImageDetails from "./ImageDetails";
+import { photoDetails } from "../components/Interface";
 
 // Components
 
 const Gallery = () => {
   const router = useRouter();
-  const [photos, setPhotos] = useState([])
+  const [photos, setPhotos] = useState([]);
+  const [popUp, setPopUp] = useState(false);
 
   const getAllPhotos = async () => {
     let data;
@@ -21,14 +25,14 @@ const Gallery = () => {
     if (accessToken) {
       data = await getPhotos(accessToken);
       setPhotos(data);
-      console.log(data)
+      console.log(data);
     } else {
       data = await getPhotos("string");
     }
   };
 
   useEffect(() => {
-    const refreshToken = localStorage.getItem("refreshToken");    
+    const refreshToken = localStorage.getItem("refreshToken");
     if (refreshToken) {
       getAllPhotos();
     } else {
@@ -55,60 +59,29 @@ const Gallery = () => {
           <p className="text-lg opacity-50">December 23, 2024</p>
         </div>
         <div className="w-full grid md:grid-cols-5 grid-cols-1 gap-6">
-          <figure>
-            <Image
-              src="/shoot1.jpeg"
-              alt="Gallery image 1"
-              className="w-full bg-cover"
-              width={105}
-              height={55}
-            />
-          </figure>
-          <figure>
-            <Image
-              src="/shoot1.jpeg"
-              alt="Gallery image 1"
-              width={105}
-              height={105}
-              className="w-full bg-cover"
-            />
-          </figure>
-          <figure>
-            <Image
-              src="/shoot1.jpeg"
-              alt="Gallery image 1"
-              width={105}
-              height={105}
-              className="w-full bg-cover"
-            />
-          </figure>
-          <figure>
-            <Image
-              src="/shoot1.jpeg"
-              alt="Gallery image 1"
-              width={105}
-              height={105}
-              className="w-full bg-cover"
-            />
-          </figure>
-          <figure>
-            <Image
-              src="/shoot1.jpeg"
-              alt="Gallery image 1"
-              width={105}
-              height={105}
-              className="w-full bg-cover"
-            />
-          </figure>
-          <figure>
-            <Image
-              src="/shoot1.jpeg"
-              alt="Gallery image 1"
-              width={105}
-              height={105}
-              className="w-full bg-cover"
-            />
-          </figure>
+          {photos.length > 0 ? (
+            <>
+              {photos?.map((photo: photoDetails, index: any) => {
+                return (
+                  <>
+                    <figure key={index} className="relative">
+                      {popUp && <ImageDetails imageDetails={photo} />}
+                      <Image
+                        src="/shoot1.jpeg"
+                        alt="Gallery image 1"
+                        className="w-full bg-cover"
+                        width={105}
+                        height={55}
+                      />
+                    </figure>
+                    ;
+                  </>
+                );
+              })}
+            </>
+          ) : (
+            <RecentBookingsEmptyState />
+          )}
         </div>
       </div>
     </main>

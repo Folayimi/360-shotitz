@@ -9,6 +9,12 @@ export interface bookingSchema {
   shooting_time: string;
 }
 
+export interface photoDetails {
+  projectName: string;
+  date: string;
+  projectUrl: string;
+}
+
 export interface fetchBookingSchema {
   id: string;
   created_at: string;

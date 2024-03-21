@@ -11,8 +11,10 @@ import { FaTimes } from "react-icons/fa";
 
 const OTPVerificationModal = ({
   setIsRequestedOTP,
+  type
 }: {
   setIsRequestedOTP: Dispatch<SetStateAction<Boolean>>;
+  type:string;
 }) => {
   const [otp, setOtp] = useState<any>("0");
   const [email, setEmail] = useState("");
@@ -26,7 +28,7 @@ const OTPVerificationModal = ({
     e.preventDefault();
     if (email && otp !== "") {
       setLoading(true);
-      await verifyOTP({ email, otp }, router);
+      await verifyOTP({ email, otp}, router, type);
       setLoading(false);
     } else {
       console.log("not valid");

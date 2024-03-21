@@ -126,7 +126,7 @@ const DashboardHome = () => {
         <div className="w-full flex flex-col gap-4">
           <div className="w-full max-w-full min-w-full flex justify-between items-center">
             <h1 className="text-xl font-semibold opacity-85">
-              Recently View Image
+              Recently Viewed Images
             </h1>
             <button
               title="create bucks"

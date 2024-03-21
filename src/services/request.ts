@@ -191,7 +191,7 @@ export const userRegistration = async (data: registerProps) => {
     });
 };
 
-export const resetPasswordOTP = async (email: string, router: any) => {
+export const resetPasswordOTP = async (email: string) => {
   await axios
     .post(
       `${api}/auth/send-password-reset-otp/`,
@@ -206,8 +206,7 @@ export const resetPasswordOTP = async (email: string, router: any) => {
     .then((response) => {
       console.log(response);
       if (response.data.message) {
-        notify(response.data.message);
-        router.push("/auth/otp");
+        notify(response.data.message);        
       }
     })
     .catch((err) => {
@@ -220,7 +219,7 @@ export const resetPasswordOTP = async (email: string, router: any) => {
     });
 };
 
-export const verifyOTP = async (data: OTPDetails, router: any) => {
+export const verifyOTP = async (data: OTPDetails, router: any, type:string) => {
   await axios
     .post(`${api}/auth/verify-email/`, data, {
       headers: {
@@ -232,7 +231,11 @@ export const verifyOTP = async (data: OTPDetails, router: any) => {
       console.log(response);
       if (response.data.message) {
         notify(response.data.message);
-        router.push("/auth/login");
+        if(type="registeration"){
+          router.push("/auth/login");
+        }else{
+          router.push("/dashboard/profile")
+        }
       }
     })
     .catch((err) => {

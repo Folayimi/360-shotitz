@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import Loader from "@/Loader/Loader";
 import { resetPasswordOTP } from "@/services/request";
 import { useRouter } from "next/navigation";
+import OTPVerificationModal from "@/components/OTPVerificationModal";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isRequestedOTP, setIsRequestedOTP] = useState<Boolean>(false);
 
   const router = useRouter();
 
@@ -15,13 +17,17 @@ const ResetPassword = () => {
     if (email) {
       setLoading(true);
       localStorage.setItem("userEmail", email);
-      await resetPasswordOTP(email, router);
+      await resetPasswordOTP(email);
       setLoading(false);
+      setIsRequestedOTP(true);
     }
   };
 
   return (
     <div className="login-page w-full min-h-screen justify-center items-center flex">
+      {isRequestedOTP && (
+        <OTPVerificationModal setIsRequestedOTP={setIsRequestedOTP} type="reset-password"/>
+      )}
       <div className="w-full max-w-[450px] bg-[#0F0F0F] rounded-2xl py-10 px-6">
         <div>
           <h1 className="text-3xl text-primary">Forgot password?</h1>
