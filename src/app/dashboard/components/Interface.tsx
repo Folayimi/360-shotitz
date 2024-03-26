@@ -12,7 +12,7 @@ export interface bookingSchema {
 export interface photoDetails {
   projectName: string;
   date: string;
-  projectUrl: string;
+  cover_image: string;
 }
 
 export interface fetchBookingSchema {

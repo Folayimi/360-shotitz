@@ -51,7 +51,12 @@ const UserProfile = () => {
   const [isDelivering, setisDelivering] = useState<Boolean>(false);
   return (
     <>
-      {isDelivering && <DeliverImage setisDelivering={setisDelivering} deliveredBookings={userBookingDetails?.delivered_bookings}/>}
+      {isDelivering && (
+        <DeliverImage
+          setisDelivering={setisDelivering}
+          bookingId={userBookingDetails?.id}
+        />
+      )}
 
       <div className="w-full text-white max-w-full min-w-full grid grid-cols-1 gap-8">
         <div className="w-full flex flex-col gap-4">
@@ -85,7 +90,7 @@ const UserProfile = () => {
             <div>
               <ul className="flex flex-col gap-6 font-medium text-lg">
                 <li>Name: {userBookingDetails?.name}</li>
-                <li>Phone Number: 09263645785745</li>
+                <li>Phone Number: {userBookingDetails?.phone_number}</li>
                 <li>
                   Booked Date: {userBookingDetails?.shooting_date};{" "}
                   {userBookingDetails?.shooting_time}
@@ -110,11 +115,12 @@ const UserProfile = () => {
           </div>
 
           <div className="w-full my-6">
-            {userBookingDetails?.delivered_bookings.length > 0 ? (
+            {<EmptyState />}
+            {/* {userBookingDetails?.delivered_bookings.length > 0 ? (
               <BookingsTable recentBookings={userBookingDetails?.delivered_bookings}/>
             ) : (
               <EmptyState />
-            )}
+            )} */}
           </div>
         </div>
       </div>

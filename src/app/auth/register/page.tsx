@@ -77,9 +77,9 @@ const RegisterPage = () => {
 
   return (
     <>
-      {isRequestedOTP && (
+      {/* {isRequestedOTP && (
         <OTPVerificationModal setIsRequestedOTP={setIsRequestedOTP} type="registeration"/>
-      )}
+      )} */}
       <div className="login-page w-full min-h-screen justify-center items-center flex">
         <div className="w-full max-w-[450px] bg-[#0F0F0F] rounded-2xl py-10 px-6">
           <div>

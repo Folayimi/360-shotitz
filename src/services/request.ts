@@ -180,6 +180,7 @@ export const userRegistration = async (data: registerProps) => {
         localStorage.setItem("userEmail", data.email);
       }
       notify(response.data.message);
+      window.location.pathname = "/login"
     })
     .catch((err) => {
       if (err.response.data.message) {

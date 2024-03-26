@@ -18,19 +18,18 @@ import GhostImage from "../../../../../../public/ghost.jpeg";
 type InputRefType = HTMLInputElement;
 
 const DeliverImage = ({
-  deliveredBookings,
+  bookingId,
   setisDelivering,
 }: {
-  deliveredBookings: any;
+  bookingId: any;
   setisDelivering: Dispatch<SetStateAction<Boolean>>;
 }) => {
   const [loading, setLoading] = useState(false);
   //  Profile details
   const [deliveries, setDeliveries] = useState<any>({
     project_name: "",
-    date_time: "",
-    project_url: "",
-    avatar: "",
+    cover_image: "",
+    url: "",
   });
 
   // Create target REF
@@ -49,7 +48,7 @@ const DeliverImage = ({
       base64.type === "image/jpeg" ||
       base64.type === "image/jfif"
     ) {
-      setDeliveries({ ...deliveries, avatar: base64.base64 });
+      setDeliveries({ ...deliveries, cover_image: base64.base64 });
       // Call API to upload image to database
     }
     console.log(base64);
@@ -57,13 +56,10 @@ const DeliverImage = ({
 
   const HandleDelivery = async () => {
     // TODO: CALL API TO Deliver Image
-    if (deliveries.project_url) {
+    if (deliveries.project_name && deliveries.cover_image && deliveries.url) {
       console.log(deliveries);
       setLoading(true);
-      await deliverImages(
-        { url: [deliveries.project_url] },
-        deliveredBookings.id
-      );
+      await deliverImages(deliveries, bookingId);
       setLoading(false);
       // setisDelivering(false)
     }
@@ -87,10 +83,10 @@ const DeliverImage = ({
                       className="relative w-auto"
                     >
                       <div className="relative flex flex-col">
-                        {deliveries.avatar ? (
+                        {deliveries.cover_image ? (
                           <div className="relative w-auto transition-all rounded flex items-center justify-center">
                             <Image
-                              src={deliveries.avatar}
+                              src={deliveries.cover_image}
                               width={40}
                               height={40}
                               alt={`Profile Image`}
@@ -115,8 +111,8 @@ const DeliverImage = ({
                             <FileBase64
                               name="cover"
                               defaultValue={
-                                deliveries["avatar"]
-                                  ? deliveries.avatar
+                                deliveries["cover_image"]
+                                  ? deliveries.cover_image
                                   : GhostImage
                               }
                               multiple={false}
@@ -141,6 +137,13 @@ const DeliverImage = ({
                     type="text"
                     id="project_name"
                     name="project_name"
+                    value={deliveries["project_name"]}
+                    onChange={(e) => {
+                      setDeliveries({
+                        ...deliveries,
+                        project_name: e.target.value,
+                      });
+                    }}
                     placeholder="Ajani Born Dara"
                     className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
                   />
@@ -159,14 +162,14 @@ const DeliverImage = ({
                 <div>
                   <label htmlFor="project_url">Project URL</label>
                   <input
-                    type="text"
+                    type="url"
                     id="project_url"
-                    name="project_url"
-                    value={deliveries["project_url"]}
+                    name="url"
+                    value={deliveries["url"]}
                     onChange={(e: any) => {
                       setDeliveries({
                         ...deliveries,
-                        project_url: e.target.value,
+                        url: e.target.value,
                       });
                     }}
                     placeholder="Link to the work"

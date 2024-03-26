@@ -67,14 +67,15 @@ const Gallery = () => {
                     <figure key={index} className="relative">
                       {popUp && <ImageDetails imageDetails={photo} />}
                       <Image
-                        src="/shoot1.jpeg"
+                        src={`${
+                          photo.cover_image ? photo.cover_image : "/shoot1.jpeg"
+                        }`}
                         alt="Gallery image 1"
                         className="w-full bg-cover"
                         width={105}
                         height={55}
                       />
                     </figure>
-                    ;
                   </>
                 );
               })}

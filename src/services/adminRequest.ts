@@ -104,7 +104,7 @@ export const updateBooking = async (data: any, id: string) => {
 
 export const deliverImages = async (data: any, id: string) => {
   await axios
-    .patch(`${api}/deliver/${id}/`, data, {
+    .post(`${api}/admin/deliver/${id}/`, data, {
       headers: {
         "Content-Type": "application/json",
       },
