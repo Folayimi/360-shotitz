@@ -16,7 +16,7 @@ import { photoDetails } from "../components/Interface";
 const Gallery = () => {
   const router = useRouter();
   const [photos, setPhotos] = useState([]);
-  const [popUp, setPopUp] = useState(false);
+  const [popUp, setPopUp] = useState<Boolean>(false);
 
   const getAllPhotos = async () => {
     let data;
@@ -64,8 +64,16 @@ const Gallery = () => {
               {photos?.map((photo: photoDetails, index: any) => {
                 return (
                   <>
-                    <figure key={index} className="relative">
-                      {popUp && <ImageDetails imageDetails={photo} />}
+                    {popUp && (
+                      <ImageDetails imageDetails={photo} setPopUp={setPopUp} />
+                    )}
+                    <figure
+                      key={index}
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setPopUp(true);
+                      }}
+                    >
                       <Image
                         src={`${
                           photo.cover_image ? photo.cover_image : "/shoot1.jpeg"
