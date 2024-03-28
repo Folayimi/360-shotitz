@@ -7,6 +7,7 @@ import {
   loginProps,
   registerProps,
   OTPDetails,
+  calculateSchema,
 } from "@/app/dashboard/components/Interface";
 
 const api = "https://shotitz-api.vercel.app/api/v1";
@@ -88,7 +89,7 @@ const refreshToken = async () => {
     .catch((err) => {
       console.log("refresh error");
       if (err.response.data.message) {
-        console.log(err.response.data.message)
+        console.log(err.response.data.message);
         // notifyError(err.response.data.message);
       } else {
         notifyError("Network Error");
@@ -153,7 +154,7 @@ export const userLogin = async (data: loginProps, router: any) => {
       if (response.data.status === "success") {
         localStorage.setItem("refreshToken", response.data.data.refresh);
         localStorage.setItem("accessToken", response.data.data.access);
-        console.log(response.data.data)
+        console.log(response.data.data);
         console.log("authenticated user login");
         notify(response.data.message);
         router.push("/dashboard");
@@ -182,7 +183,7 @@ export const userRegistration = async (data: registerProps) => {
         localStorage.setItem("userEmail", data.email);
       }
       notify(response.data.message);
-      window.location.pathname = "/login"
+      window.location.pathname = "/login";
     })
     .catch((err) => {
       if (err.response.data.message) {
@@ -209,7 +210,7 @@ export const resetPasswordOTP = async (email: string) => {
     .then((response) => {
       console.log(response);
       if (response.data.message) {
-        notify(response.data.message);        
+        notify(response.data.message);
       }
     })
     .catch((err) => {
@@ -222,7 +223,11 @@ export const resetPasswordOTP = async (email: string) => {
     });
 };
 
-export const verifyOTP = async (data: OTPDetails, router: any, type:string) => {
+export const verifyOTP = async (
+  data: OTPDetails,
+  router: any,
+  type: string
+) => {
   await axios
     .post(`${api}/auth/verify-email/`, data, {
       headers: {
@@ -234,10 +239,10 @@ export const verifyOTP = async (data: OTPDetails, router: any, type:string) => {
       console.log(response);
       if (response.data.message) {
         notify(response.data.message);
-        if(type="registeration"){
+        if ((type = "registeration")) {
           router.push("/auth/login");
-        }else{
-          router.push("/dashboard/profile")
+        } else {
+          router.push("/dashboard/profile");
         }
       }
     })
@@ -331,6 +336,28 @@ export const retrieveAllUserBookings = async (accessToken: string) => {
       } else {
         notifyError("Network Error");
       }
+    });
+  return result;
+};
+
+export const calculateAmount = async (accessToken:string, data: calculateSchema) => {
+  let result: any = [];
+  await axios
+    .post(`${api}/store/calculate-amount/`, data, setConfig(accessToken))
+    .then((response) => {
+      console.log(response);
+      if (response.data.status === "success") {        
+        result = response.data.data;
+        console.log("amount calculated");
+      }
+    })
+    .catch((err) => {
+      if (err.response.data.message) {
+        notifyError(err.response.data.message);
+      } else {
+        notifyError("Network Error");
+      }
+      console.log(err);
     });
   return result;
 };

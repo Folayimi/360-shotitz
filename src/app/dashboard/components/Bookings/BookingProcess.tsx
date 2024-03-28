@@ -2,10 +2,7 @@
 
 import React, { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { createBookings } from "@/services/request";
-import {
-  retrieveBankDetails,
-  retrieveAvailablePlans,
-} from "@/services/request";
+import { profileSchema } from "../Interface";
 
 // Icons
 import { FaTimes } from "react-icons/fa";
@@ -28,7 +25,7 @@ const BookingProcess = ({
     plan: "JASPER",
     shoot_type: "OUTDOOR",
     location: "",
-    number_of_shoot: "",
+    number_of_shoot: 0,
     amount: "",
     shooting_date: new Date().getTime.toString(),
     shooting_time: "",
@@ -43,14 +40,20 @@ const BookingProcess = ({
     bank_name: "",
   });
 
-  const [pricingPlan, setPricingPlan] = useState([]);
+  //  Profile details
+  const [profile, setProfile] = useState<profileSchema>({
+    first_name: "fetching...",
+    last_name: "",
+    email: "",
+    avatar: "",
+  });
 
   useEffect(() => {
     if (
       bookingInfo["phone"] &&
       bookingInfo["plan"] &&
       bookingInfo["shoot_type"] &&
-      bookingInfo["location"] &&      
+      bookingInfo["location"] &&
       bookingInfo["number_of_shoot"] &&
       bookingInfo["shooting_date"] &&
       bookingInfo["shooting_time"]
@@ -61,42 +64,9 @@ const BookingProcess = ({
     }
   }, [bookingInfo, changing]);
 
-  // const getBankDetails = async () => {
-  //   let data;
-  //   const accessToken = localStorage.getItem("accessToken");
-  //   console.log("token: " + accessToken);
-  //   if (accessToken) {
-  //     data = await retrieveBankDetails(accessToken);
-  //     if (data) {
-  //       setBankDetails(data);
-  //     }
-  //     console.log(data);
-  //   } else {
-  //     data = await retrieveBankDetails("string");
-  //   }
-  // };
-
-  const getAvailablePlans = async () => {
-    let data;
-    const accessToken = localStorage.getItem("accessToken");
-    console.log("token: " + accessToken);
-    if (accessToken) {
-      data = await retrieveAvailablePlans(accessToken);
-      if (data) {
-        setPricingPlan(data);
-      }
-      console.log(data);
-    } else {
-      data = await retrieveAvailablePlans("string");
-    }
-  };
-
   useEffect(() => {
     const refreshToken = localStorage.getItem("refreshToken");
-    if (refreshToken) {
-      // getBankDetails();
-      // getAvailablePlans();
-    } else {
+    if (!refreshToken) {
       console.log("unAuthorized");
       window.location.pathname = "/auth/login";
     }
@@ -143,6 +113,8 @@ const BookingProcess = ({
               <BookingProcessOne
                 setBookingInfo={setBookingInfo}
                 bookingInfo={bookingInfo}
+                profile={profile}
+                setProfile={setProfile}
               />
             )}
 
@@ -152,7 +124,9 @@ const BookingProcess = ({
                 setBookingInfo={setBookingInfo}
               />
             )}
-            {bookingSteps === 3 && <FinalStep bankDetails={bankDetails} />}
+            {bookingSteps === 3 && (
+              <FinalStep bookingInfo={bookingInfo} profile={profile} />
+            )}
 
             <button
               className="w-full min-h-12 bg-primary rounded-md mt-6"

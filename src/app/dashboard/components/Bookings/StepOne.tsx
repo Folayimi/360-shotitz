@@ -1,35 +1,24 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { bookingSchema } from "../Interface";
+import { bookingSchema, profileSchema } from "../Interface";
 import { retrieveProfile } from "@/services/request";
 
 const BookingProcessOne = ({
   setBookingInfo,
   bookingInfo,
+  profile,
+  setProfile,
 }: {
   setBookingInfo: React.Dispatch<React.SetStateAction<bookingSchema>>;
   bookingInfo: bookingSchema;
+  profile: profileSchema;
+  setProfile: React.Dispatch<React.SetStateAction<profileSchema>>;
 }) => {
-  interface profileSchema {
-    first_name: string;
-    last_name: string;
-    email: string;
-    avatar: string;
-  }
-
-  //  Profile details
-  const [profile, setProfile] = useState<profileSchema>({
-    first_name: "fetching...",
-    last_name: "",
-    email: "",
-    avatar: "",
-  });
-
   const handleChange = (e: any) => {
     let name = e.target.name;
     let value = e.target.value;
-    setBookingInfo({ ...bookingInfo, [name]: value });
+    setBookingInfo({ ...bookingInfo, [name]: value });   
   };
 
   const getUserProfile = async () => {

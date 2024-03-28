@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { bookingSchema } from "../Interface";
+import { calculateAmount } from "@/services/request";
+import Loader from "@/Loader/Loader";
 
 const BookingProcessOne = ({
   setBookingInfo,
@@ -15,6 +17,34 @@ const BookingProcessOne = ({
     let value = e.target.value;
     setBookingInfo({ ...bookingInfo, [name]: value });
   };
+
+  const [loading, setLoading] = useState(false);
+
+  const calculateShootAmount = async () => {
+    let data = [];
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      setLoading(true);
+      data = await calculateAmount(accessToken, {
+        number_of_shoot: bookingInfo["number_of_shoot"],
+      });
+      setLoading(false);
+      if (data) {
+        console.log(data);
+        setBookingInfo({ ...bookingInfo, amount: data.price });
+      }
+    } else {
+      data = await calculateAmount("string", {
+        number_of_shoot: bookingInfo["number_of_shoot"],
+      });
+    }
+  };
+
+  // useEffect(() => {
+  //   if (bookingInfo["number_of_shoot"] > 0) {
+  //     calculateShootAmount();
+  //   }
+  // }, [bookingInfo["number_of_shoot"]]);
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -49,13 +79,36 @@ const BookingProcessOne = ({
         </div>
 
         <div>
-          <label htmlFor="Phone_number">Amount</label>
+          <div className="w-full flex items-center gap-[10px]">
+            <label htmlFor="Phone_number">Amount</label>
+            <button
+              type="button"
+              onClick={() => {
+                if (bookingInfo["number_of_shoot"] > 0) {
+                  calculateShootAmount();
+                }
+              }}
+              className="bg-primary text-white px-2 py-1 rounded-md"
+            >
+              {loading ? (
+                <>
+                  <div className="w-full flex items-center gap-[5px]">
+                    <Loader /> <p>Calculate</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p>Calculate</p>
+                </>
+              )}
+            </button>
+          </div>
           <input
             type="number"
             id="amount"
             name="amount"
-            value = {bookingInfo["amount"]}   
-            disabled         
+            value={bookingInfo["amount"]}
+            disabled
             placeholder="Enter number of shoot to get amount"
             className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
           />

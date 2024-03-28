@@ -4,9 +4,20 @@ export interface bookingSchema {
   shoot_type: string;
   location: string;
   amount: string;
-  number_of_shoot: string;
+  number_of_shoot: number;
   shooting_date: string;
   shooting_time: string;
+}
+
+export interface profileSchema {
+  first_name: string;
+  last_name: string;
+  email: string;
+  avatar: string;
+}
+
+export interface calculateSchema {
+  number_of_shoot: number;
 }
 
 export interface photoDetails {
