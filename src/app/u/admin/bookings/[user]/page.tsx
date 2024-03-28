@@ -58,8 +58,8 @@ const UserProfile = () => {
         />
       )}
 
-      <div className="w-full text-white max-w-full min-w-full grid grid-cols-1 gap-8">
-        <div className="w-full flex flex-col gap-4">
+      <div className="w-full  h-full text-white max-w-full min-w-full grid grid-cols-1 gap-8">
+        <div className="w-full h-full flex flex-col gap-4">
           <div className="w-full max-w-full min-w-full flex justify-between items-center">
             <h1 className="text-xl font-semibold opacity-85">Deliveries</h1>
           </div>
@@ -104,23 +104,6 @@ const UserProfile = () => {
                 Deliver Image
               </button>
             </div>
-          </div>
-        </div>
-
-        <div className="w-full flex flex-col gap-4">
-          <div className="w-full max-w-full min-w-full flex justify-between items-center">
-            <h1 className="text-xl font-semibold opacity-85">
-              Deliver History
-            </h1>
-          </div>
-
-          <div className="w-full my-6">
-            {<EmptyState />}
-            {/* {userBookingDetails?.delivered_bookings.length > 0 ? (
-              <BookingsTable recentBookings={userBookingDetails?.delivered_bookings}/>
-            ) : (
-              <EmptyState />
-            )} */}
           </div>
         </div>
       </div>

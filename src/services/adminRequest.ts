@@ -19,7 +19,8 @@ export const adminLogin = async (data: loginProps, router: any) => {
         localStorage.setItem("adminAccessToken", response.data.data.access);
         console.log("authenticated admin login");
         notify(response.data.message);
-        router.push("/u/admin");
+        window.location.pathname = "/u/admin"
+        // router.push("/u/admin");
       }
     })
     .catch((err) => {

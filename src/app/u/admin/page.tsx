@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 // Icons
 import { CiMoneyBill } from "react-icons/ci";
 import { BsStars } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 import { adminBookingOverviewSchema } from "@/app/dashboard/components/Interface";
 import {
   retrieveAllUserBookings,
@@ -26,7 +27,7 @@ const DashboardHome = () => {
       data = await adminDashboardDetails(accessToken);
       if (data) {
         setAdminDetails(data);
-      }      
+      }
       console.log(data.recent_bookings);
     } else {
       data = await adminDashboardDetails("string");
@@ -133,7 +134,8 @@ const DashboardHome = () => {
   );
 };
 
-const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {  
+const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {
+  const router = useRouter();
   return (
     <>
       <div className="overflow-hidden rounded-lg text-white shadow-md">
@@ -148,6 +150,9 @@ const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {
               </th>
               <th scope="col" className="px-6 py-4 font-medium text-lg">
                 Picture Delivererd
+              </th>
+              <th scope="col" className="px-6 py-4 font-medium text-lg">
+                Payment Status
               </th>
               <th scope="col" className="px-6 py-4 font-medium text-lg">
                 Shooting Date
@@ -166,6 +171,9 @@ const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {
                 <tr
                   className="w-full hover:bg-[white]/10 cursor-pointer"
                   key={index}
+                  onClick={() => {
+                    router.push(`/u/admin/bookings/${item?.id}`);
+                  }}
                 >
                   <td className="flex gap-3 px-6 py-4 font-normal">
                     <div className="text-sm">
@@ -178,6 +186,7 @@ const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {
                     </div>
                   </td>
                   <td className="px-6 py-4">{item?.number_of_shoot}</td>
+                  <td className="px-6 py-4">{item?.payment_status}</td>
                   <td className="px-6 py-4">{item?.shooting_date}</td>
                   <td className="px-6 py-4">{item?.plan}</td>
                   <td className="px-6 py-4">₦{item?.price}</td>
