@@ -25,7 +25,7 @@ const BookingProcess = ({
 }) => {
   const [bookingInfo, setBookingInfo] = useState<bookingSchema>({
     phone: "",
-    plan: "SAPPHIRE",
+    plan: "JASPER",
     shoot_type: "OUTDOOR",
     location: "",
     number_of_shoot: "",
@@ -50,8 +50,7 @@ const BookingProcess = ({
       bookingInfo["phone"] &&
       bookingInfo["plan"] &&
       bookingInfo["shoot_type"] &&
-      bookingInfo["location"] &&
-      bookingInfo["amount"] &&
+      bookingInfo["location"] &&      
       bookingInfo["number_of_shoot"] &&
       bookingInfo["shooting_date"] &&
       bookingInfo["shooting_time"]
@@ -62,20 +61,20 @@ const BookingProcess = ({
     }
   }, [bookingInfo, changing]);
 
-  const getBankDetails = async () => {
-    let data;
-    const accessToken = localStorage.getItem("accessToken");
-    console.log("token: " + accessToken);
-    if (accessToken) {
-      data = await retrieveBankDetails(accessToken);
-      if (data) {
-        setBankDetails(data);
-      }
-      console.log(data);
-    } else {
-      data = await retrieveBankDetails("string");
-    }
-  };
+  // const getBankDetails = async () => {
+  //   let data;
+  //   const accessToken = localStorage.getItem("accessToken");
+  //   console.log("token: " + accessToken);
+  //   if (accessToken) {
+  //     data = await retrieveBankDetails(accessToken);
+  //     if (data) {
+  //       setBankDetails(data);
+  //     }
+  //     console.log(data);
+  //   } else {
+  //     data = await retrieveBankDetails("string");
+  //   }
+  // };
 
   const getAvailablePlans = async () => {
     let data;
@@ -95,8 +94,8 @@ const BookingProcess = ({
   useEffect(() => {
     const refreshToken = localStorage.getItem("refreshToken");
     if (refreshToken) {
-      getBankDetails();
-      getAvailablePlans();
+      // getBankDetails();
+      // getAvailablePlans();
     } else {
       console.log("unAuthorized");
       window.location.pathname = "/auth/login";
@@ -106,7 +105,7 @@ const BookingProcess = ({
   const HandleBookingProcessSubmission = async () => {
     setChanging(!changing);
     let data = [];
-    if (bookingSteps === 4) {
+    if (bookingSteps === 3) {
       if (valid) {
         setLoading(true);
         // TODO: CALL API TO MAKE BOOKINGS RATHER THAN CONSOLE LOGGING IT
@@ -117,7 +116,20 @@ const BookingProcess = ({
         // END BOOKING PROCESS
         return setisStartBookingProcess(false);
       }
-    } else {
+    } else if (
+      bookingSteps === 1 &&
+      bookingInfo["phone"] &&
+      bookingInfo["shooting_date"] &&
+      bookingInfo["shooting_time"]
+    ) {
+      setBookingSteps(bookingSteps + 1);
+    } else if (
+      bookingSteps === 2 &&
+      bookingInfo["shoot_type"] &&
+      bookingInfo["location"] &&
+      bookingInfo["number_of_shoot"] &&
+      bookingInfo["amount"]
+    ) {
       setBookingSteps(bookingSteps + 1);
     }
   };
@@ -146,11 +158,11 @@ const BookingProcess = ({
               className="w-full min-h-12 bg-primary rounded-md mt-6"
               onClick={HandleBookingProcessSubmission}
             >
-              {bookingSteps === 1 && "Make payment"}
+              {bookingSteps === 1 && "Next"}
               {bookingSteps === 2 && "Next"}
               {loading
-                ? bookingSteps === 4 && <Loader />
-                : bookingSteps === 4 && "Completed"}
+                ? bookingSteps === 3 && <Loader />
+                : bookingSteps === 3 && "Make Payment"}
             </button>
           </div>
         </div>

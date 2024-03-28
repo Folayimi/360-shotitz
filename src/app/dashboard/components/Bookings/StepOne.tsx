@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { bookingSchema } from "../Interface";
+import { retrieveProfile } from "@/services/request";
 
 const BookingProcessOne = ({
   setBookingInfo,
@@ -10,11 +11,46 @@ const BookingProcessOne = ({
   setBookingInfo: React.Dispatch<React.SetStateAction<bookingSchema>>;
   bookingInfo: bookingSchema;
 }) => {
+  interface profileSchema {
+    first_name: string;
+    last_name: string;
+    email: string;
+    avatar: string;
+  }
+
+  //  Profile details
+  const [profile, setProfile] = useState<profileSchema>({
+    first_name: "fetching...",
+    last_name: "",
+    email: "",
+    avatar: "",
+  });
+
   const handleChange = (e: any) => {
     let name = e.target.name;
     let value = e.target.value;
     setBookingInfo({ ...bookingInfo, [name]: value });
   };
+
+  const getUserProfile = async () => {
+    let data = [];
+    const accessToken = localStorage.getItem("accessToken");
+    console.log("token: " + accessToken);
+    if (accessToken) {
+      data = await retrieveProfile(accessToken);
+      console.log(data);
+      if (data) {
+        setProfile(data);
+      }
+    } else {
+      data = await retrieveProfile("string");
+    }
+  };
+
+  useEffect(() => {
+    getUserProfile();
+  }, []);
+
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="w-full flex flex-col gap-2">
@@ -28,12 +64,14 @@ const BookingProcessOne = ({
             type="text"
             id="full_name"
             name="full_name"
+            value={profile.first_name + " " + profile.last_name}
+            disabled
             placeholder="Enter your Full Name"
             className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
           />
         </div>
         <div>
-          <label htmlFor="Phone_number">Phone Number</label>
+          <label htmlFor="Phone_number">WhatsApp Number</label>
           <input
             type="number"
             id="Phone_number"
@@ -69,12 +107,6 @@ const BookingProcessOne = ({
             className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
           />
         </div>
-
-        {/* <div className="w-full flex flex-col gap-2.5">
-          <button className="w-full min-h-12 bg-primary rounded-md mt-3">
-            Make payment
-          </button>
-        </div> */}
       </form>
     </div>
   );

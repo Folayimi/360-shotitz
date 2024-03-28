@@ -88,7 +88,8 @@ const refreshToken = async () => {
     .catch((err) => {
       console.log("refresh error");
       if (err.response.data.message) {
-        notifyError(err.response.data.message);
+        console.log(err.response.data.message)
+        // notifyError(err.response.data.message);
       } else {
         notifyError("Network Error");
       }
@@ -152,6 +153,7 @@ export const userLogin = async (data: loginProps, router: any) => {
       if (response.data.status === "success") {
         localStorage.setItem("refreshToken", response.data.data.refresh);
         localStorage.setItem("accessToken", response.data.data.access);
+        console.log(response.data.data)
         console.log("authenticated user login");
         notify(response.data.message);
         router.push("/dashboard");

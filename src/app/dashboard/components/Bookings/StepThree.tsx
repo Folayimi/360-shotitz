@@ -54,7 +54,9 @@ const BookingProcessOne = ({
             type="number"
             id="amount"
             name="amount"
-            placeholder=""
+            value = {bookingInfo["amount"]}   
+            disabled         
+            placeholder="Enter number of shoot to get amount"
             className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
           />
         </div>
