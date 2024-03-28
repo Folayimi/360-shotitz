@@ -9,7 +9,6 @@ import { FaTimes } from "react-icons/fa";
 
 // booking process - steps
 import BookingProcessOne from "./StepOne";
-import BookingProcessTwo from "./StepTwo";
 import BookingProcessThree from "./StepThree";
 import FinalStep from "./FinalStep";
 import { bookingSchema, bankDetailsSchema } from "../Interface";
@@ -74,7 +73,7 @@ const BookingProcess = ({
       console.log("unAuthorized");
       window.location.pathname = "/auth/login";
     }
-  }, []);
+  }, []);  
 
   const config = {
     public_key: "FLWPUBK_TEST-2a51de5f6aa0b93c749c49ce3f220876-X",

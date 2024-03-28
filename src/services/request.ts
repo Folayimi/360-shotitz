@@ -340,13 +340,16 @@ export const retrieveAllUserBookings = async (accessToken: string) => {
   return result;
 };
 
-export const calculateAmount = async (accessToken:string, data: calculateSchema) => {
+export const calculateAmount = async (
+  accessToken: string,
+  data: calculateSchema
+) => {
   let result: any = [];
   await axios
     .post(`${api}/store/calculate-amount/`, data, setConfig(accessToken))
     .then((response) => {
       console.log(response);
-      if (response.data.status === "success") {        
+      if (response.data.status === "success") {
         result = response.data.data;
         console.log("amount calculated");
       }
@@ -365,7 +368,20 @@ export const calculateAmount = async (accessToken:string, data: calculateSchema)
 export const createBookings = async (data: bookingSchema) => {
   let result: any = [];
   await axios
-    .post(`${api}/store/bookings/`, data, setConfig("accessToken"))
+    .post(
+      `${api}/store/bookings/`,
+      data.location
+        ? data
+        : {
+            phone: data.phone,
+            plan: data.plan,
+            shoot_type: data.shoot_type,
+            number_of_shoot: data.number_of_shoot,
+            shooting_date: data.shooting_date,
+            shooting_time: data.shooting_time,
+          },
+      setConfig("accessToken")
+    )
     .then((response) => {
       console.log(response);
       if (response.data.status === "success") {
