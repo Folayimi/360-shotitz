@@ -4,7 +4,11 @@ import React from "react";
 import { MdOutlinePending } from "react-icons/md";
 import { fetchBookingSchema } from "../../components/Interface";
 
-const BookingsTable = ({ recentData }: { recentData: any }) => {
+const BookingsTable = ({
+  recentData,  
+}: {
+  recentData: any;  
+}) => {
   return (
     <>
       <div className="overflow-hidden rounded-lg text-white shadow-md">

@@ -20,6 +20,9 @@ const BookingsTable = ({ allBookings }: { allBookings: any }) => {
                 Picture Delivererd
               </th>
               <th scope="col" className="px-6 py-4 font-medium text-lg">
+                Payment Status
+              </th>
+              <th scope="col" className="px-6 py-4 font-medium text-lg">
                 Shooting Date
               </th>
               <th scope="col" className="px-6 py-4 font-medium text-lg">
@@ -51,6 +54,7 @@ const BookingsTable = ({ allBookings }: { allBookings: any }) => {
                     </div>
                   </td>
                   <td className="px-6 py-4">{item?.number_of_shoot}</td>
+                  <td className="px-6 py-4">{item?.payment_status}</td>
                   <td className="px-6 py-4">{item?.shooting_date}</td>
                   <td className="px-6 py-4">{item?.plan}</td>
                   <td className="px-6 py-4">₦{item?.price}</td>

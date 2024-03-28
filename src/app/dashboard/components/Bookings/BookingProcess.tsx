@@ -18,8 +18,12 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 const BookingProcess = ({
   setisStartBookingProcess,
+  setRefresh,
+  refresh,
 }: {
   setisStartBookingProcess: Dispatch<SetStateAction<Boolean>>;
+  setRefresh: Dispatch<SetStateAction<boolean>>;
+  refresh: boolean;
 }) => {
   const [bookingInfo, setBookingInfo] = useState<bookingSchema>({
     phone: "",
@@ -102,6 +106,7 @@ const BookingProcess = ({
         data = await createBookings(bookingInfo);
         console.log(data);
         console.log(bookingInfo);
+        setRefresh(!refresh);
         setLoading(false);
 
         // MAKE FLUTTERWAVE PAYMENT

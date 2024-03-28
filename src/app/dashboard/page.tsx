@@ -22,6 +22,7 @@ const DashboardHome = () => {
   const [recentImages, setRecentImages] = useState([]);
   const [overviewData, setOverviewData] = useState<bookingOverviewSchema>();
   const [loading, setLoading] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const [isStartBookingProcess, setisStartBookingProcess] =
     useState<Boolean>(false);
@@ -54,10 +55,18 @@ const DashboardHome = () => {
     }
   }, []);
 
+  useEffect(() => {
+    getRecentData();
+  }, [refresh]);
+
   return (
     <>
       {isStartBookingProcess && (
-        <BookingProcess setisStartBookingProcess={setisStartBookingProcess} />
+        <BookingProcess
+          setisStartBookingProcess={setisStartBookingProcess}
+          setRefresh={setRefresh}
+          refresh={refresh}
+        />
       )}
 
       <div className="w-full text-white max-w-full min-w-full grid grid-cols-1 gap-8">

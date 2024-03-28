@@ -19,6 +19,7 @@ const Bookings = () => {
   const [isStartBookingProcess, setisStartBookingProcess] =
     useState<Boolean>(false);
   const [bookings, setBookings] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   const getRecentData = async () => {
     let data;
@@ -42,10 +43,18 @@ const Bookings = () => {
     }
   }, []);
 
+  useEffect(() => {
+    getRecentData();
+  }, [refresh]);
+
   return (
     <>
       {isStartBookingProcess && (
-        <BookingProcess setisStartBookingProcess={setisStartBookingProcess} />
+        <BookingProcess
+          setisStartBookingProcess={setisStartBookingProcess}
+          setRefresh={setRefresh}
+          refresh={refresh}
+        />
       )}
       <main className="w-full text-white max-w-full min-w-full grid grid-cols-1 gap-8">
         <div className="w-full max-w-full min-w-full flex justify-between items-center gap-4">
@@ -70,7 +79,7 @@ const Bookings = () => {
         </div>
 
         <div className="w-full">
-        {bookings ? (
+          {bookings ? (
             <>
               <BookingsTable recentData={bookings} />
             </>
