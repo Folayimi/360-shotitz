@@ -14,6 +14,7 @@ import BookingProcessThree from "./StepThree";
 import FinalStep from "./FinalStep";
 import { bookingSchema, bankDetailsSchema } from "../Interface";
 import Loader from "@/Loader/Loader";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 const BookingProcess = ({
   setisStartBookingProcess,
@@ -53,7 +54,6 @@ const BookingProcess = ({
       bookingInfo["phone"] &&
       bookingInfo["plan"] &&
       bookingInfo["shoot_type"] &&
-      bookingInfo["location"] &&
       bookingInfo["number_of_shoot"] &&
       bookingInfo["shooting_date"] &&
       bookingInfo["shooting_time"]
@@ -72,6 +72,26 @@ const BookingProcess = ({
     }
   }, []);
 
+  const config = {
+    public_key: "FLWPUBK_TEST-2a51de5f6aa0b93c749c49ce3f220876-X",
+    tx_ref: new Date().getTime.toString(),
+    amount: parseInt(bookingInfo.amount),
+    currency: "NGN",
+    payment_options: "card,mobilemoney,ussd",
+    customer: {
+      email: profile.email,
+      phone_number: bookingInfo.phone,
+      name: profile.first_name + " " + profile.last_name,
+    },
+    customizations: {
+      title: "360_SHOTITZ",
+      description: "Payment to create bookings on Jasper",
+      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+    },
+  };
+
+  const handleFlutterPayment = useFlutterwave(config);
+
   const HandleBookingProcessSubmission = async () => {
     setChanging(!changing);
     let data = [];
@@ -83,8 +103,18 @@ const BookingProcess = ({
         console.log(data);
         console.log(bookingInfo);
         setLoading(false);
-        // END BOOKING PROCESS
-        return setisStartBookingProcess(false);
+
+        // MAKE FLUTTERWAVE PAYMENT
+        handleFlutterPayment({
+          callback: (response) => {
+            console.log(response);
+            closePaymentModal(); // this will close the modal programmatically
+          },
+          onClose: () => {
+            // END BOOKING PROCESS
+            return setisStartBookingProcess(false);
+          },
+        });
       }
     } else if (
       bookingSteps === 1 &&
@@ -96,11 +126,17 @@ const BookingProcess = ({
     } else if (
       bookingSteps === 2 &&
       bookingInfo["shoot_type"] &&
-      bookingInfo["location"] &&
       bookingInfo["number_of_shoot"] &&
       bookingInfo["amount"]
     ) {
-      setBookingSteps(bookingSteps + 1);
+      if (
+        bookingInfo["shoot_type"].toLowerCase() === "outdoor" &&
+        bookingInfo["location"]
+      ) {
+        setBookingSteps(bookingSteps + 1);
+      } else if (bookingInfo["shoot_type"].toLowerCase() === "indoor") {
+        setBookingSteps(bookingSteps + 1);
+      }
     }
   };
 

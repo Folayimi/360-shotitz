@@ -46,16 +46,21 @@ const FinalStep = ({
       value: bookingInfo.shooting_time,
     },
   ];
+
   return (
     <div className="w-full flex flex-col justify-between gap-12">
       <div className="w-full flex flex-col gap-4 text-white font-light">
         <p className="text-lg text-primary font-bold">Payment Details</p>
-        {PaymentDetails.map((detail, index) => (
-          <div key={index} className="flex gap-1 text-lg">
-            <p className="font-bold">{detail.title}:</p>
-            <p>{detail.value}</p>
-          </div>
-        ))}
+        {PaymentDetails.map((detail, index) =>
+          detail.title === "Location" && !detail.value ? null : (
+            <>
+              <div key={index} className="flex gap-1 text-lg">
+                <p className="font-bold">{detail.title}:</p>
+                <p>{detail.value}</p>
+              </div>
+            </>
+          )
+        )}
       </div>
     </div>
   );

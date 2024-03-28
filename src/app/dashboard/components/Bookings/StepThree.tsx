@@ -15,7 +15,11 @@ const BookingProcessOne = ({
   const handleChange = (e: any) => {
     let name = e.target.name;
     let value = e.target.value;
-    setBookingInfo({ ...bookingInfo, [name]: value });
+    if (name === "shoot_type" && value === "indoor") {
+      setBookingInfo({ ...bookingInfo, location: "", [name]: value });
+    } else {
+      setBookingInfo({ ...bookingInfo, [name]: value });
+    }
   };
 
   const [loading, setLoading] = useState(false);
@@ -40,11 +44,9 @@ const BookingProcessOne = ({
     }
   };
 
-  // useEffect(() => {
-  //   if (bookingInfo["number_of_shoot"] > 0) {
-  //     calculateShootAmount();
-  //   }
-  // }, [bookingInfo["number_of_shoot"]]);
+  useEffect(() => {
+    setBookingInfo({ ...bookingInfo, amount: "" });
+  }, [bookingInfo["number_of_shoot"]]);
 
   return (
     <div className="w-full flex flex-col gap-4">
@@ -62,8 +64,8 @@ const BookingProcessOne = ({
             onChange={handleChange}
             className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
           >
-            <option value="outdoor">OUTDOOR</option>
-            <option value="indoor">INDOOR</option>
+            <option>OUTDOOR</option>
+            <option>INDOOR</option>
           </select>
         </div>
         <div>
@@ -113,25 +115,20 @@ const BookingProcessOne = ({
             className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
           />
         </div>
-
-        <div>
-          <label htmlFor="password">Location</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={bookingInfo["location"]}
-            onChange={handleChange}
-            placeholder="e.g lagos"
-            className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
-          />
-        </div>
-
-        {/* <div className="w-full flex flex-col gap-2.5">
-          <button className="w-full min-h-12 bg-primary rounded-md mt-3">
-            Make payment
-          </button>
-        </div> */}
+        {bookingInfo["shoot_type"].toLowerCase() === "outdoor" && (
+          <div>
+            <label htmlFor="password">Location</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={bookingInfo["location"]}
+              onChange={handleChange}
+              placeholder="e.g lagos"
+              className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
+            />
+          </div>
+        )}
       </form>
     </div>
   );
