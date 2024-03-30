@@ -11,7 +11,7 @@ const BookingsTable = ({
 }) => {
   return (
     <>
-      <div className="overflow-y-auto h-[60vh] rounded-lg text-white shadow-md">
+      <div className="overflow-y-auto h-[70vh] rounded-lg text-white shadow-md">
         <table className="w-full border-collapse bg-transparent text-left text-sm text-white">
           <thead>
             <tr>

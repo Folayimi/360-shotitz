@@ -40,11 +40,6 @@ const BookingProcess = ({
   const [changing, setChanging] = useState(false);
   const [loading, setLoading] = useState(false);
   const [txRef, setTxRef] = useState("");
-  const [bankDetails, setBankDetails] = useState<bankDetailsSchema>({
-    account_name: "",
-    account_number: "",
-    bank_name: "",
-  });
 
   //  Profile details
   const [profile, setProfile] = useState<profileSchema>({
@@ -89,8 +84,7 @@ const BookingProcess = ({
         console.log(bookingInfo);
         console.log(data);
         setTxRef(data.tx_ref);
-        console.log(data.tx_ref);
-        setRefresh(!refresh);
+        console.log(data.tx_ref);        
         setLoading(false);
         setisStartBookingProcess(false);
 
@@ -123,6 +117,7 @@ const BookingProcess = ({
           onClose: () => {
             // END BOOKING PROCESS
             setisStartBookingProcess(false);
+            setRefresh(!refresh);
           },
         });
       }
