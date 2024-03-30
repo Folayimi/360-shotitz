@@ -114,7 +114,10 @@ const DashboardHome = () => {
           </div>
 
           <div>
-            <BookingsTable recentBookings={adminDetails?.recent_bookings} />
+            <BookingsTable
+              recentBookings={adminDetails?.recent_bookings}
+              type="pending"
+            />
           </div>
         </div>
 
@@ -126,7 +129,10 @@ const DashboardHome = () => {
           </div>
 
           <div>
-            <BookingsTable recentBookings={adminDetails?.recently_delivered} />
+            <BookingsTable
+              recentBookings={adminDetails?.recently_delivered}
+              type="delivered"
+            />
           </div>
         </div>
       </div>
@@ -134,7 +140,13 @@ const DashboardHome = () => {
   );
 };
 
-const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {
+const BookingsTable = ({
+  recentBookings,
+  type,
+}: {
+  recentBookings: any;
+  type: string;
+}) => {
   const router = useRouter();
   return (
     <>
@@ -175,7 +187,8 @@ const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {
                   className="w-full hover:bg-[white]/10 cursor-pointer"
                   key={index}
                   onClick={() => {
-                    router.push(`/u/admin/bookings/${item?.id}`);
+                    type === "pending" &&
+                      router.push(`/u/admin/bookings/${item?.id}`);
                   }}
                 >
                   <td className="flex gap-3 px-6 py-4 font-normal">
