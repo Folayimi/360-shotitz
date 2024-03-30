@@ -11,7 +11,7 @@ const BookingsTable = ({
 }) => {
   return (
     <>
-      <div className="overflow-hidden rounded-lg text-white shadow-md">
+      <div className="overflow-y-auto h-[60vh] rounded-lg text-white shadow-md">
         <table className="w-full border-collapse bg-transparent text-left text-sm text-white">
           <thead>
             <tr>
@@ -26,6 +26,9 @@ const BookingsTable = ({
               </th>
               <th scope="col" className="px-6 py-4 font-medium text-lg">
                 Shooting Date
+              </th>
+              <th scope="col" className="px-6 py-4 font-medium text-lg">
+                Shooting Time
               </th>
               <th scope="col" className="px-6 py-4 font-medium text-lg">
                 Plan Type
@@ -56,6 +59,7 @@ const BookingsTable = ({
                       </td>
                       <td className="px-6 py-4">{item.delivery_status}</td>
                       <td className="px-6 py-4">{item.shooting_date}</td>
+                      <td className="px-6 py-4">{item.shooting_time}</td>
                       <td className="px-6 py-4">{item.plan}</td>
                       <td className="px-6 py-4">{`₦ ${item.price}`}</td>
                     </tr>
