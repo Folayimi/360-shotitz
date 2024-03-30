@@ -48,7 +48,7 @@ const DeliverImage = ({
       base64.type === "image/jpeg" ||
       base64.type === "image/jfif"
     ) {
-      setDeliveries({ ...deliveries, cover_image: base64.base64 });
+      setDeliveries({ ...deliveries, cover_image: base64 });
       // Call API to upload image to database
     }
     console.log(base64);
@@ -59,7 +59,14 @@ const DeliverImage = ({
     if (deliveries.project_name && deliveries.cover_image && deliveries.url) {
       console.log(deliveries);
       setLoading(true);
-      await deliverImages(deliveries, bookingId);
+      await deliverImages(
+        {
+          project_name: deliveries.project_name,
+          cover_image: deliveries.cover_image.file,
+          url: deliveries.url,
+        },
+        bookingId
+      );
       setLoading(false);
       // setisDelivering(false)
     }
@@ -86,7 +93,7 @@ const DeliverImage = ({
                         {deliveries.cover_image ? (
                           <div className="relative w-auto transition-all rounded flex items-center justify-center">
                             <Image
-                              src={deliveries.cover_image}
+                              src={deliveries.cover_image.base64}
                               width={40}
                               height={40}
                               alt={`Profile Image`}

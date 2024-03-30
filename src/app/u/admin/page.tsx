@@ -45,7 +45,7 @@ const DashboardHome = () => {
   }, []);
   return (
     <>
-      <div className="w-full text-white max-w-full min-w-full grid grid-cols-1 gap-8">
+      <div className="w-full overflow-auto text-white max-w-full min-w-full grid grid-cols-1 gap-8">
         <div className="w-full max-w-full min-w-full flex justify-between items-center gap-4">
           <h1 className="text-xl font-semibold opacity-85">
             Dashboard Overview
@@ -103,7 +103,7 @@ const DashboardHome = () => {
         <div className="w-full flex flex-col gap-4">
           <div className="w-full max-w-full min-w-full flex justify-between items-center">
             <h1 className="text-xl font-semibold opacity-85">
-              Recently Delivered
+              Recent Bookings
             </h1>
             <button
               title="create bucks"
@@ -121,7 +121,7 @@ const DashboardHome = () => {
         <div className="w-full flex flex-col gap-4">
           <div className="w-full max-w-full min-w-full flex justify-between items-center">
             <h1 className="text-xl font-semibold opacity-85">
-              Recent Bookings
+              Recently Delivered
             </h1>
           </div>
 
@@ -138,7 +138,7 @@ const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {
   const router = useRouter();
   return (
     <>
-      <div className="overflow-hidden rounded-lg text-white shadow-md">
+      <div className="overflow-y-auto h-[70vh] rounded-lg text-white shadow-md">
         <table className="w-full border-collapse bg-transparent text-left text-sm text-white">
           <thead>
             <tr>
@@ -156,6 +156,9 @@ const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {
               </th>
               <th scope="col" className="px-6 py-4 font-medium text-lg">
                 Shooting Date
+              </th>
+              <th scope="col" className="px-6 py-4 font-medium text-lg">
+                Shooting Time
               </th>
               <th scope="col" className="px-6 py-4 font-medium text-lg">
                 Plan Type
@@ -188,6 +191,7 @@ const BookingsTable = ({ recentBookings }: { recentBookings: any }) => {
                   <td className="px-6 py-4">{item?.number_of_shoot}</td>
                   <td className="px-6 py-4">{item?.payment_status}</td>
                   <td className="px-6 py-4">{item?.shooting_date}</td>
+                  <td className="px-6 py-4">{item?.shooting_time}</td>
                   <td className="px-6 py-4">{item?.plan}</td>
                   <td className="px-6 py-4">₦{item?.price}</td>
                 </tr>

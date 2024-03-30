@@ -19,7 +19,7 @@ export const adminLogin = async (data: loginProps, router: any) => {
         localStorage.setItem("adminAccessToken", response.data.data.access);
         console.log("authenticated admin login");
         notify(response.data.message);
-        window.location.pathname = "/u/admin"
+        window.location.pathname = "/u/admin";
         // router.push("/u/admin");
       }
     })
@@ -107,7 +107,7 @@ export const deliverImages = async (data: any, id: string) => {
   await axios
     .post(`${api}/admin/deliver/${id}/`, data, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
       withCredentials: true,
     })
@@ -116,6 +116,7 @@ export const deliverImages = async (data: any, id: string) => {
       if (response.data.status === "success") {
         console.log(response.data.message);
         notify(response.data.message);
+        window.location.pathname = "/u/admin/bookings";
       }
     })
     .catch((err) => {
