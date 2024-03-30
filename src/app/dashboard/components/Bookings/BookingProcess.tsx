@@ -109,18 +109,20 @@ const BookingProcess = ({
         setisStartBookingProcess(false);
 
         // MAKE FLUTTERWAVE PAYMENT
-        handleFlutterPayment({
-          callback: (response) => {
-            console.log(response);
-            closePaymentModal(); // this will close the modal programmatically
-            setRefresh(!refresh);
-          },
-          onClose: () => {
-            // END BOOKING PROCESS
-            setisStartBookingProcess(false);
-            setRefresh(!refresh);
-          },
-        });
+        if (config.tx_ref) {
+          handleFlutterPayment({
+            callback: (response) => {
+              console.log(response);
+              closePaymentModal(); // this will close the modal programmatically
+              setRefresh(!refresh);
+            },
+            onClose: () => {
+              // END BOOKING PROCESS
+              setisStartBookingProcess(false);
+              setRefresh(!refresh);
+            },
+          });
+        }
       }
     } else if (
       bookingSteps === 1 &&
