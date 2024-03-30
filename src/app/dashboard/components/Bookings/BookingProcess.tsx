@@ -84,7 +84,7 @@ const BookingProcess = ({
         console.log(bookingInfo);
         console.log(data);
         setTxRef(data.tx_ref);
-        console.log(data.tx_ref);        
+        console.log(data.tx_ref);
         setLoading(false);
         setisStartBookingProcess(false);
 
@@ -106,20 +106,36 @@ const BookingProcess = ({
         //   },
         // };
 
-        // const handleFlutterPayment = useFlutterwave(config);
+        const handleFlutterPayment = useFlutterwave({
+          public_key: "FLWPUBK_TEST-2a51de5f6aa0b93c749c49ce3f220876-X",
+          tx_ref: data.tx_ref,
+          amount: parseInt(bookingInfo.amount),
+          currency: "NGN",
+          payment_options: "card,mobilemoney,ussd",
+          customer: {
+            email: profile.email,
+            phone_number: bookingInfo.phone,
+            name: profile.first_name + " " + profile.last_name,
+          },
+          customizations: {
+            title: "360_SHOTITZ",
+            description: "Payment to create bookings on Jasper",
+            logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+          },
+        });
 
-        // // MAKE FLUTTERWAVE PAYMENT
-        // handleFlutterPayment({
-        //   callback: (response) => {
-        //     console.log(response);
-        //     closePaymentModal(); // this will close the modal programmatically
-        //     // setRefresh(!refresh);
-        //   },
-        //   onClose: () => {
-        //     // END BOOKING PROCESS
-        //     setisStartBookingProcess(false);            
-        //   },
-        // });
+        // MAKE FLUTTERWAVE PAYMENT
+        handleFlutterPayment({
+          callback: (response) => {
+            console.log(response);
+            closePaymentModal(); // this will close the modal programmatically
+            // setRefresh(!refresh);
+          },
+          onClose: () => {
+            // END BOOKING PROCESS
+            setisStartBookingProcess(false);
+          },
+        });
       }
     } else if (
       bookingSteps === 1 &&
