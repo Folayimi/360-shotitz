@@ -113,6 +113,7 @@ const BookingProcess = ({
           callback: (response) => {
             console.log(response);
             closePaymentModal(); // this will close the modal programmatically
+            setRefresh(!refresh);
           },
           onClose: () => {
             // END BOOKING PROCESS
