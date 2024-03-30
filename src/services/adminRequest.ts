@@ -116,7 +116,7 @@ export const deliverImages = async (data: any, id: string) => {
       if (response.data.status === "success") {
         console.log(response.data.message);
         notify(response.data.message);
-        window.location.pathname = "/u/admin/bookings";
+        window.location.pathname = "/u/admin";
       }
     })
     .catch((err) => {

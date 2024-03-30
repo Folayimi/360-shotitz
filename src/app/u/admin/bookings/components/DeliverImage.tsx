@@ -54,7 +54,8 @@ const DeliverImage = ({
     console.log(base64);
   };
 
-  const HandleDelivery = async () => {
+  const HandleDelivery = async (e:any) => {
+    e.preventDefault();
     // TODO: CALL API TO Deliver Image
     if (deliveries.project_name && deliveries.cover_image && deliveries.url) {
       console.log(deliveries);
@@ -78,7 +79,10 @@ const DeliverImage = ({
         <div className="w-full flex flex-col gap-2">
           <div className="w-full">
             <div>
-              <form className="flex flex-col gap-5 mt-8">
+              <form
+                className="flex flex-col gap-5 mt-8"
+                onSubmit={HandleDelivery}
+              >
                 <div className="w-full flex flex-col gap-4">
                   <h2 className="text-xl font-bold text-primary">
                     Cover Image
@@ -183,15 +187,14 @@ const DeliverImage = ({
                     className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
                   />
                 </div>
+                <button
+                  className="w-full min-h-12 bg-primary rounded-md"
+                  type="submit"
+                >
+                  {loading ? <Loader /> : "Deliver Image"}
+                </button>
               </form>
             </div>
-
-            <button
-              className="w-full min-h-12 bg-primary rounded-md mt-6"
-              onClick={HandleDelivery}
-            >
-              {loading ? <Loader /> : "Deliver Image"}
-            </button>
           </div>
         </div>
 
