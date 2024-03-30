@@ -18,6 +18,7 @@ const config: Config = {
         black: "#000000",
         primary: "#FF6B03",
         secondary: "#ffe6c9",
+        secondary1: "rgb(0,0,0,0.5)",
         sidebar: "#111111",
         dashboard: "#000000",
         dashboardText: "##969696",
