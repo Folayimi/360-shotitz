@@ -117,8 +117,7 @@ const BookingProcess = ({
           },
           onClose: () => {
             // END BOOKING PROCESS
-            setisStartBookingProcess(false);
-            setRefresh(!refresh);
+            setisStartBookingProcess(false);            
           },
         });
       }
