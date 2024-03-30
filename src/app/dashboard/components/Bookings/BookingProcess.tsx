@@ -14,6 +14,7 @@ import FinalStep from "./FinalStep";
 import { bookingSchema, bankDetailsSchema } from "../Interface";
 import Loader from "@/Loader/Loader";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import paymentId from "./paymentId";
 
 const BookingProcess = ({
   setisStartBookingProcess,
@@ -69,15 +70,16 @@ const BookingProcess = ({
 
   useEffect(() => {
     const refreshToken = localStorage.getItem("refreshToken");
+    console.log("id: " + paymentId())
     if (!refreshToken) {
       console.log("unAuthorized");
       window.location.pathname = "/auth/login";
     }
-  }, []);  
+  }, []);
 
   const config = {
     public_key: "FLWPUBK_TEST-2a51de5f6aa0b93c749c49ce3f220876-X",
-    tx_ref: new Date().getTime.toString(),
+    tx_ref: paymentId(),
     amount: parseInt(bookingInfo.amount),
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
@@ -107,6 +109,7 @@ const BookingProcess = ({
         console.log(bookingInfo);
         setRefresh(!refresh);
         setLoading(false);
+        setisStartBookingProcess(false);        
 
         // MAKE FLUTTERWAVE PAYMENT
         handleFlutterPayment({
@@ -116,7 +119,7 @@ const BookingProcess = ({
           },
           onClose: () => {
             // END BOOKING PROCESS
-            return setisStartBookingProcess(false);
+          setisStartBookingProcess(false);
           },
         });
       }
