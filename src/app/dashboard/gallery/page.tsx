@@ -31,6 +31,8 @@ const Gallery = () => {
     }
   };
 
+  const [details, setDetails] = useState<any>(null);
+
   useEffect(() => {
     const refreshToken = localStorage.getItem("refreshToken");
     if (refreshToken) {
@@ -42,6 +44,7 @@ const Gallery = () => {
   }, []);
   return (
     <main className="w-full text-white max-w-full min-w-full grid grid-cols-1 gap-8">
+      {popUp && <ImageDetails imageDetails={details} setPopUp={setPopUp} />}
       <div className="w-full max-w-full min-w-full flex justify-between items-center">
         <div
           className="flex items-center gap-4 cursor-pointer"
@@ -64,14 +67,13 @@ const Gallery = () => {
               {photos?.map((photo: photoDetails, index: any) => {
                 return (
                   <>
-                    {popUp && (
-                      <ImageDetails imageDetails={photo} setPopUp={setPopUp} />
-                    )}
                     <figure
                       key={index}
                       className="cursor-pointer"
                       onClick={() => {
-                        setPopUp(true);
+                        console.log(photo);
+                        setDetails(photo);
+                        setPopUp(true);                        
                       }}
                     >
                       <Image

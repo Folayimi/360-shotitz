@@ -54,7 +54,7 @@ const DeliverImage = ({
     console.log(base64);
   };
 
-  const HandleDelivery = async (e:any) => {
+  const HandleDelivery = async (e: any) => {
     e.preventDefault();
     // TODO: CALL API TO Deliver Image
     if (deliveries.project_name && deliveries.cover_image && deliveries.url) {
@@ -71,6 +71,37 @@ const DeliverImage = ({
       setLoading(false);
       // setisDelivering(false)
     }
+  };
+
+  const dateString = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    const hours = String(currentDate.getHours()).padStart(2, "0");
+    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
+    const seconds = String(currentDate.getSeconds()).padStart(2, "0");
+
+    // Construct the date string in the desired format (YYYY-MM-DD HH:MM:SS)
+    const DateString = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return DateString;
+  };
+
+  const getDateTime = (dateString: string) => {
+    const dateObject = new Date(dateString);
+
+    // Get date components
+    const year = dateObject.getFullYear();
+    const month = dateObject.getMonth() + 1; // Months are zero-based
+    const day = dateObject.getDate();
+
+    // Get time components
+    const hours = dateObject.getHours();
+    const minutes = dateObject.getMinutes();
+    const seconds = dateObject.getSeconds();
+    const milliseconds = dateObject.getMilliseconds();
+
+    return `${year}-${month}-${day} At ${hours}:${minutes}:${seconds}.${milliseconds}`;
   };
 
   return (
@@ -160,12 +191,14 @@ const DeliverImage = ({
                   />
                 </div>
                 <div>
-                  <label htmlFor="date_and_time">Date & Time</label>
+                  <label htmlFor="date_and_time">Time-Stamp</label>
                   <input
-                    type="datetime-local"
-                    id="date_and_time"
+                    type="text"
+                    id="text"
                     name="date_and_time"
-                    placeholder={new Date().getTime.toString()}
+                    value={getDateTime(dateString())}
+                    placeholder={getDateTime(dateString())}
+                    disabled
                     className="w-full bg-white rounded-md min-h-12 mt-1.5 p-2 text-black"
                   />
                 </div>

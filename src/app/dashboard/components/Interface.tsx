@@ -20,10 +20,12 @@ export interface calculateSchema {
   number_of_shoot: number;
 }
 
-export interface photoDetails {
-  projectName: string;
-  date: string;
+export interface photoDetails {  
   cover_image: string;
+  delivery_date: string;  
+  id:string;
+  project_name: string;
+  url:string
 }
 
 export interface fetchBookingSchema {
