@@ -74,7 +74,7 @@ const BookingProcess = ({
   }, []);
 
   let config = {
-    public_key: "FLWPUBK_TEST-2a51de5f6aa0b93c749c49ce3f220876-X",
+    public_key: "FLWPUBK-1c88c255caed10702427055609023eb1-X",
     tx_ref: "",
     amount: parseInt(bookingInfo.amount),
     currency: "NGN",
