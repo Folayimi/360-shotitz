@@ -10,7 +10,8 @@ import {
   calculateSchema,
 } from "@/app/dashboard/components/Interface";
 
-const api = "https://shotitz-api.vercel.app/api/v1";
+//const api = "https://shotitz-api.vercel.app/api/v1";
+const api = "https://api.360shotitz.com";
 
 // export function getCookie(cookieName: string) {
 //   const name = cookieName + "=";
