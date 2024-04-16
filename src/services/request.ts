@@ -11,7 +11,7 @@ import {
 } from "@/app/dashboard/components/Interface";
 
 //const api = "https://shotitz-api.vercel.app/api/v1";
-const api = "https://api.360shotitz.com";
+const api = "https://api.360shotitz.com/api/v1";
 
 // export function getCookie(cookieName: string) {
 //   const name = cookieName + "=";
