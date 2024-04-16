@@ -5,7 +5,8 @@ import { error } from "console";
 import { loginProps } from "@/app/dashboard/components/Interface";
 import { setConfig } from "./request";
 
-const api = "https://shotitz-api.vercel.app/api/v1";
+//const api = "https://shotitz-api.vercel.app/api/v1";
+const api = "https://api.360shotitz.com";
 
 export const adminLogin = async (data: loginProps, router: any) => {
   await axios
